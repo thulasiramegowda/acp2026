@@ -6,39 +6,70 @@ typedef struct {
     float area;
 } Rectangle;
 
-int main() {
+void input(int n, Rectangle rects[]);
+void calculate_area(int n, Rectangle rects[]);
+int findLargestArea(int n, Rectangle rects[]);
+void output(int largestIndex, Rectangle rects[]);
 
-    int n, i, maxIndex = 0;
-
+int main()
+{
+    int n;
     printf("Enter number of rectangles: ");
     scanf("%d", &n);
 
-    Rectangle r[n];
+    Rectangle rects[n];
 
-    for(i = 0; i < n; i++) {
+    input(n, rects);
+    calculate_area(n, rects);
 
+    int largestIndex = findLargestArea(n, rects);
+
+    output(largestIndex, rects);
+
+    return 0;
+}
+
+void input(int n, Rectangle rects[])
+{
+    for(int i = 0; i < n; i++)
+    {
         printf("\nRectangle %d\n", i+1);
 
         printf("Enter length: ");
-        scanf("%f", &r[i].length);
+        scanf("%f", &rects[i].length);
 
         printf("Enter width: ");
-        scanf("%f", &r[i].width);
+        scanf("%f", &rects[i].width);
+    }
+}
 
-        r[i].area = r[i].length * r[i].width;
+void calculate_area(int n, Rectangle rects[])
+{
+    for(int i = 0; i < n; i++)
+    {
+        rects[i].area = rects[i].length * rects[i].width;
+    }
+}
+
+int findLargestArea(int n, Rectangle rects[])
+{
+    int largest = 0;
+
+    for(int i = 1; i < n; i++)
+    {
+        if(rects[i].area > rects[largest].area)
+        {
+            largest = i;
+        }
     }
 
-    printf("\nAreas of rectangles:\n");
+    return largest;
+}
 
-    for(i = 0; i < n; i++) {
-        printf("Rectangle %d Area = %.2f\n", i+1, r[i].area);
-
-        if(r[i].area > r[maxIndex].area)
-            maxIndex = i;
-    }
-
-    printf("\nRectangle %d has the largest area = %.2f\n",
-           maxIndex + 1, r[maxIndex].area);
-
-    return 0;
+void output(int largestIndex, Rectangle rects[])
+{
+    printf("\nLargest Rectangle Details:\n");
+    printf("Length = %.2f\n", rects[largestIndex].length);
+    printf("Width = %.2f\n", rects[largestIndex].width);
+    printf("Area = %.2f\n", rects[largestIndex].area);
 }
