@@ -4,14 +4,15 @@ typedef struct
 {
     float length;
     float width;
-    float cost_per_unit;
-    float total_cost;
+    float area;
+    float costPerUnit;
+    float totalCost;
 } Floor;
 
-void input(int n, Floor floors[]);
-void calculate_costs(int n, Floor floors[]);
-int findHighestCost(int n, Floor floors[]);
-void displayHighest(int index, Floor floors[]);
+void inputDetails(int n, Floor floors[]);
+void calculateCosts(int n, Floor floors[]);
+int highestCostFloor(int n, Floor floors[]);
+void displayHighestCost(int index, Floor floors[]);
 
 int main()
 {
@@ -22,22 +23,22 @@ int main()
 
     Floor floors[n];
 
-    input(n, floors);
+    inputDetails(n, floors);
 
-    calculate_costs(n, floors);
+    calculateCosts(n, floors);
 
-    int index = findHighestCost(n, floors);
+    int index = highestCostFloor(n, floors);
 
-    displayHighest(index, floors);
+    displayHighestCost(index, floors);
 
     return 0;
 }
 
-void input(int n, Floor floors[])
+void inputDetails(int n, Floor floors[])
 {
     for(int i=0;i<n;i++)
     {
-        printf("\nFloor %d\n", i+1);
+        printf("\nFloor %d\n",i+1);
 
         printf("Enter length: ");
         scanf("%f",&floors[i].length);
@@ -46,33 +47,40 @@ void input(int n, Floor floors[])
         scanf("%f",&floors[i].width);
 
         printf("Enter cost per unit: ");
-        scanf("%f",&floors[i].cost_per_unit);
+        scanf("%f",&floors[i].costPerUnit);
     }
 }
 
-void calculate_costs(int n, Floor floors[])
+void calculateCosts(int n, Floor floors[])
 {
     for(int i=0;i<n;i++)
     {
-        floors[i].total_cost =
-        floors[i].length * floors[i].width * floors[i].cost_per_unit;
+        floors[i].area = floors[i].length * floors[i].width;
+
+        floors[i].totalCost = floors[i].area * floors[i].costPerUnit;
     }
 }
 
-int findHighestCost(int n, Floor floors[])
+int highestCostFloor(int n, Floor floors[])
 {
     int index = 0;
 
     for(int i=1;i<n;i++)
     {
-        if(floors[i].total_cost > floors[index].total_cost)
+        if(floors[i].totalCost > floors[index].totalCost)
+        {
             index = i;
+        }
     }
 
     return index;
 }
 
-void displayHighest(int index, Floor floors[])
+void displayHighestCost(int index, Floor floors[])
 {
-    printf("\nHighest Tiling Cost = %.2f", floors[index].total_cost);
+    printf("\nFloor with Highest Tiling Cost:\n");
+    printf("Length = %.2f\n",floors[index].length);
+    printf("Width = %.2f\n",floors[index].width);
+    printf("Area = %.2f\n",floors[index].area);
+    printf("Total Cost = %.2f\n",floors[index].totalCost);
 }
