@@ -39,12 +39,14 @@ ElectricityBill input()
 
 ElectricityBill calculate_bill(ElectricityBill bill)
 {
-    bill.total_bill = bill.units * bill.rate;
-
-    if(bill.units > 100)
+    if(bill.units < 50)
     {
-        bill.total_bill += (bill.units - 100) * 5;
-        printf("High consumption alert! Extra charge applied.\n");
+        bill.total_bill = 0;
+        printf("Free unit consumption scheme applied.\n");
+    }
+    else
+    {
+        bill.total_bill = bill.units * bill.rate;
     }
 
     return bill;
