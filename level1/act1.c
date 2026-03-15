@@ -11,7 +11,7 @@ int main(){
     float temps[7];
     inputTemperatures(n,temps);
     max = findHighest(n,temps);
-    min = findLowest(n,temps);
+    min = findLowest(n,temps);s
     output(max,min);
     return 0;
 }
