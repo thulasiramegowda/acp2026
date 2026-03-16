@@ -1,65 +1,40 @@
 #include <stdio.h>
 
-typedef struct {
-    char name[50];
-    float length;
-    float width;
-    float area;
-} Rectangle;
+typedef struct
+{
+    int units;
+    float rate;
+    float total_bill;
+} ElectricityBill;
 
-Rectangle input();
-float calculate_area(Rectangle rect);
-void compare_areas(Rectangle r1, Rectangle r2, Rectangle r3);
+ElectricityBill input();
+ElectricityBill calculate_bill(ElectricityBill bill);
+void output(ElectricityBill bill);
 
-int main() {
-
-    Rectangle r1, r2, r3;
-
-    printf("Enter details for Rectangle 1:\n");
-    r1 = input();
-
-    printf("Enter details for Rectangle 2:\n");
-    r2 = input();
-
-    printf("Enter details for Rectangle 3:\n");
-    r3 = input();
-
-    r1.area = calculate_area(r1);
-    r2.area = calculate_area(r2);
-    r3.area = calculate_area(r3);
-
-    compare_areas(r1, r2, r3);
-
+int main(){
+    ElectricityBill bill;
+    bill = input();
+    bill = calculate_bill(bill);
+    output(bill);
     return 0;
 }
-
-Rectangle input() {
-    Rectangle r;
-
-    printf("Enter name: ");
-    scanf("%s", r.name);
-
-    printf("Enter length: ");
-    scanf("%f", &r.length);
-
-    printf("Enter width: ");
-    scanf("%f", &r.width);
-
-    return r;
+ElectricityBill input(){
+    ElectricityBill bill;
+    printf("enter units :");
+    scanf("%d",&bill.units);
+    printf("enter rate:");
+    scanf("%f",&bill.rate);
+    return bill;
 }
-
-float calculate_area(Rectangle rect) {
-    return rect.length * rect.width;
+ElectricityBill calculate_bill(ElectricityBill bill){
+    ElectricityBill bill;
+        bill.total_bill = bill.units * bill.rate;
+        if(bill.units>100){
+            bill.total_bill += (bill.units - 100) * 5;
+            printf("High consumption alert extra! charge appiled \n");
+        }
+        return bill;    
 }
-
-void compare_areas(Rectangle r1, Rectangle r2, Rectangle r3) {
-
-    if (r1.area >= r2.area && r1.area >= r3.area)
-        printf("Largest Rectangle: %s with area %.2f\n", r1.name, r1.area);
-
-    else if (r2.area >= r1.area && r2.area >= r3.area)
-        printf("Largest Rectangle: %s with area %.2f\n", r2.name, r2.area);
-
-    else
-        printf("Largest Rectangle: %s with area %.2f\n", r3.name, r3.area);
+void output(ElectricityBill bill){
+   printf("the total bill is ",bill.total_bill);
 }
