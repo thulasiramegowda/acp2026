@@ -1,3 +1,4 @@
+#include<stdio.h>
 typedef struct {
     	float length;
     	float width;
@@ -50,7 +51,7 @@ int highestCostFloor(int n,Floor floors[]){
     }
     return index;
 }
-void output(int index,Floor floor[]){
+void displayHighiestCost(int index,Floor floor[]){
     printf("the floor with highest cost : %d",index + 1);
-    printf("the total cost = %.3f",Floor[index].totalCost);
+    printf("the total cost = %.3f",floors[index].totalCost);
 }
